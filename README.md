@@ -1,5 +1,12 @@
 # Fault-Tolerant Data Processing System
 
+## Quick Start
+
+```bash
+npm run setup      # installs dependencies, generates Prisma client, creates database
+npm run dev        # starts the dev server on http://localhost:3000
+```
+
 ## What assumptions did you make?
 
 1. **Content identity is sufficient for deduplication.** Since clients don't provide reliable unique event IDs, I assume that the combination of `(clientId, metric, amount, timestamp)` uniquely identifies a real-world event. This means two legitimately identical events (same client, same metric, same amount, same second) would be treated as duplicates. I accept this trade-off because the problem statement says clients "may resend events" — implying duplicates are expected and identical events are likely retries, not distinct data points.
