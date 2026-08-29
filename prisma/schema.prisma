@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  contentHash String  @unique
+  clientId  String
+  metric    String
+  amount    Float
+  timestamp DateTime
+  rawPayload String
+  createdAt DateTime @default(now())
+}
+
+model FailedEvent {
+  id        String   @id @default(cuid())
+  clientId  String?
+  rawPayload String
+  error     String
+  createdAt DateTime @default(now())
+}
